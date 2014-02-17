@@ -9,6 +9,11 @@ function FooLib (ID) {
         return true;
     }
 
+    //ToDemonstrate toEqual()
+    this.testToEqual = function () {
+        return {};
+    }
+
     //To demonstrate toMatch()
     this.testToMatch = function (message) {
         return message;
@@ -52,5 +57,10 @@ function FooLib (ID) {
     //To demonstrate toThrow
     this.testToThrow = function () {
         return a + 1;
+    }
+
+    //To demonstrate spyOn
+    this.testSpyOn = function (val) {
+        return val;
     }
 };
