@@ -82,4 +82,44 @@ describe("FooLib", function() {
             expect(fooLib.testToThrow).toThrow();
         });
     });
+
+
+    describe("Spies: ", function() {
+
+        beforeEach(function() {
+            spyOn(fooLib, 'testSpyOn');
+            fooLib.testSpyOn(1234);
+            fooLib.testSpyOn(5678);
+            fooLib.testSpyOn("foo", "bar");
+        });
+
+        it("tracks that the spy was called", function() {
+            expect(fooLib.testSpyOn).toHaveBeenCalled();
+        });
+
+        it("testSpyOn() was called with a value of 1234.", function() {
+            expect(fooLib.testSpyOn).toHaveBeenCalledWith(1234);
+        });
+
+        it("testSpyOn() was called with a value of 5678.", function() {
+            expect(fooLib.testSpyOn).toHaveBeenCalledWith(5678);
+        });
+
+        it("testSpyOn() was called.", function() {
+            expect(fooLib.testSpyOn.calls.any()).toEqual(true);
+        });
+
+        it("testSpyOn() was called two times.", function() {
+            expect(fooLib.testSpyOn.calls.count()).toEqual(3);
+        });
+
+        it("testSpyOn() third call contains foo and bar in arguments.", function() {
+            expect(fooLib.testSpyOn.calls.argsFor(2)).toEqual(["foo", "bar"]);
+        });
+
+        it("all arguments passed to testSpyOn: 1234, 4567, foo, bar.", function(){
+            expect(fooLib.testSpyOn.calls.allArgs()).toEqual([[1234],[5678], ["foo", "bar"]]);
+        });
+
+    });
 });

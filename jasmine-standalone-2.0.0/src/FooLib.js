@@ -1,5 +1,7 @@
 function FooLib (ID) {
 
+    var testValue;
+
     this.id = ID;
 
     //Matchers
@@ -62,5 +64,14 @@ function FooLib (ID) {
     //To demonstrate spyOn
     this.testSpyOn = function (val) {
         return val;
+    }
+
+    //To demonstrate spyOn().and.callThrough();
+    this.setTestValue = function (val) {
+        testValue = val;
+    }
+
+    this.getTestValue = function () {
+        return testValue;
     }
 };
