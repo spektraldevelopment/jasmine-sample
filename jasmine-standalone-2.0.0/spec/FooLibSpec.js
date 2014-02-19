@@ -121,5 +121,45 @@ describe("FooLib", function() {
             expect(fooLib.testSpyOn.calls.allArgs()).toEqual([[1234],[5678], ["foo", "bar"]]);
         });
 
+        it("testSpyOn() first call contains argument of 1234.", function() {
+            expect(fooLib.testSpyOn.calls.first()).toEqual({object: fooLib, args: [1234]});
+        });
+
+        it("reset all calls.", function() {
+            expect(fooLib.testSpyOn.calls.any()).toBe(true);
+
+            fooLib.testSpyOn.calls.reset();
+
+            expect(fooLib.testSpyOn.calls.any()).toBe(false);
+        });
+    });
+
+    describe("Created Spy: ", function() {
+        var createdSpy;
+
+        beforeEach(function() {
+            createdSpy = jasmine.createSpy("createdSpy");
+            createdSpy("I", "am", "a", "spy");
+        });
+
+        it("is named, which helps in error reporting", function() {
+            expect(createdSpy.and.identity()).toEqual('createdSpy');
+        });
+
+        it("tracks that the spy was called", function() {
+            expect(createdSpy).toHaveBeenCalled();
+        });
+
+        it("tracks its number of calls", function() {
+            expect(createdSpy.calls.count()).toEqual(1);
+        });
+
+        it("tracks all the arguments of its calls", function() {
+            expect(createdSpy).toHaveBeenCalledWith("I", "am", "a", "spy");
+        });
+
+        it("allows access to the most recent call", function() {
+            expect(createdSpy.calls.mostRecent().args[0]).toEqual("I");
+        });
     });
 });
